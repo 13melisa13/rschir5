@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  backend:
+    container_name: rschir5-backend
+    image: rschir5-backend
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file: .env
+    networks:
+      - 'default'
+  postgres:
+    container_name: rschir5-postgres
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=shop
+      - POSTGRES_PASSWORD=1234
+    networks:
+      - 'default'
